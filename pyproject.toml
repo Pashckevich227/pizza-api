@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pizza-project"
+version = "0.1.0"
+description = ""
+authors = ["Pashcekvich227 <iport234@gmail.com>"]
+readme = "README.md"
+packages = [{include = "pizza_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.101.0"}
+sqlalchemy = "^2.0.19"
+psycopg2-binary = "^2.9.7"
+python-dotenv = "^1.0.0"
+environ = "^1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
