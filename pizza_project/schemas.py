@@ -21,17 +21,14 @@ class User(UserBase):
         orm_mode = True
 
 
-class PizzaBase(BaseModel):
+class PizzaCreate(BaseModel):
+    name: str
+    description: str
     size: str
     price: float
 
 
-class PizzaCreate(BaseModel):
-    name: str
-    description: str
-
-
-class Pizza(PizzaBase):
+class Pizza(PizzaCreate):
     id: int
 
     class Config:
