@@ -17,3 +17,4 @@ def create_pizza(db: Session, pizza: schemas.PizzaCreate):
 def get_pizza(db: Session, skip: int = 0, limit: int = 100):
     pizza = db.query(models.Pizza).offset(skip).limit(limit).all()
     return pizza
+
