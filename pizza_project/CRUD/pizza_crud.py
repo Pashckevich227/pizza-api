@@ -14,7 +14,9 @@ def create_pizza(db: Session, pizza: schemas.PizzaCreate):
     return db_pizza
 
 
-def get_pizza(db: Session, skip: int = 0, limit: int = 100):
-    pizza = db.query(models.Pizza).offset(skip).limit(limit).all()
-    return pizza
+def get_pizza(db: Session, pizza_id: int):
+    return db.query(models.Pizza).filter(models.Pizza.id == pizza_id).first()
 
+
+def get_all_pizzas(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Pizza).offset(skip).limit(limit).all()
