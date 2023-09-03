@@ -33,8 +33,4 @@ async def create_new_pizza(pizza: PizzaCreate, db: Session = Depends(get_db)):
 
 @router_pizza.put("/pizza/{id}", tags=["pizza"], response_model=Pizza)
 async def edit_one_pizza(id: int, pizza: Pizza, db: Session = Depends(get_db)):
-    db_pizza = edit_pizza(db, pizza_id=id, pizza=pizza)
-    if not db_pizza:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'No pizza with this id: {id} found')
-    return db_pizza
+    return edit_pizza(db, pizza_id=id, pizza=pizza)

@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from pizza_project import models, schemas
+from fastapi import HTTPException, status
 
 
 def create_pizza(db: Session, pizza: schemas.PizzaCreate):
@@ -33,5 +34,7 @@ def edit_pizza(db: Session, pizza_id: int, pizza):
         db.refresh(db_pizza)
         return db_pizza
     else:
-        return {"Pizza": "Not found"}
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail='Pizza not found')
+
 
