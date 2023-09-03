@@ -1,5 +1,4 @@
-from database import Base
-
+from pizza_project.database import Base
 from sqlalchemy import (Column,
                         Integer,
                         String,
@@ -29,4 +28,3 @@ class Pizza(Base):
     description = Column(Text)
     size = Column(String(1), nullable=False)
     price = Column(Float, nullable=False)
-
