@@ -38,3 +38,14 @@ def edit_pizza(db: Session, pizza_id: int, pizza):
                             detail='Pizza not found')
 
 
+def delete_pizza(db: Session, pizza_id: int):
+    db_pizza = db.query(models.Pizza).filter(models.Pizza.id == pizza_id).first()
+
+    if db_pizza:
+        db.delete(db_pizza)
+        db.commit()
+        return {"massage": "Pizza deleted successfully"}
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail='Pizza not found')
+
