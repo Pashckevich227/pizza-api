@@ -13,6 +13,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True, nullable=False)
     name = Column(String(30), nullable=False)
     telephone = Column(String(30))
+    email = Column(String(60))
     city = Column(String(30))
     street = Column(String(100))
     house = Column(Integer)

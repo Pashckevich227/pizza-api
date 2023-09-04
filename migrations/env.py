@@ -1,11 +1,9 @@
 from logging.config import fileConfig
 from sqlalchemy import (engine_from_config,
-                        pool,
-                        MetaData)
+                        pool)
 from alembic import context
 from os import environ
-from pizza_project.models import Pizza, User
-from pizza_project.database import engine
+from pizza_project.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -19,8 +17,8 @@ config.set_section_option(section, "DB_HOST", environ.get("POSTGRES_SERVER"))
 
 
 fileConfig(config.config_file_name)
-metadata = MetaData()
-metadata.create_all(bind=engine, tables=[Pizza.__table__, User.__table__])
+
+# metadata.create_all(bind=engine, tables=[Pizza.__table__, User.__table__])
 
 
 # Interpret the config file for Python logging.
@@ -33,7 +31,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
