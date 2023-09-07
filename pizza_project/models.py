@@ -11,9 +11,11 @@ class User(Base):
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True, nullable=False)
-    name = Column(String(30), nullable=False)
+    first_name = Column(String(30), nullable=False)
+    second_name = Column(String(40), nullable=False)
     telephone = Column(String(30))
     email = Column(String(60))
+    password = Column(String, nullable=False)
     city = Column(String(30))
     street = Column(String(100))
     house = Column(Integer)
