@@ -2,7 +2,7 @@ from logging.config import fileConfig
 from sqlalchemy import (engine_from_config,
                         pool)
 from alembic import context
-from os import environ
+from config import USER, PASSWORD, POSTGRES_DB, POSTGRES_SERVER
 from pizza_project.models import Base
 
 # this is the Alembic Config object, which provides
@@ -10,10 +10,10 @@ from pizza_project.models import Base
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(section, "DB_USER", environ.get("POSTGRES_USER"))
-config.set_section_option(section, "DB_PASS", environ.get("POSTGRES_PASSWORD"))
-config.set_section_option(section, "DB_NAME", environ.get("POSTGRES_DB"))
-config.set_section_option(section, "DB_HOST", environ.get("POSTGRES_SERVER"))
+config.set_section_option(section, "DB_USER", USER)
+config.set_section_option(section, "DB_PASS", PASSWORD)
+config.set_section_option(section, "DB_NAME", POSTGRES_DB)
+config.set_section_option(section, "DB_HOST", POSTGRES_SERVER)
 
 
 fileConfig(config.config_file_name)
