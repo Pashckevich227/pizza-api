@@ -1,10 +1,8 @@
 from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
-from models import Base
-from database import engine, SessionLocal
+from database import SessionLocal
 from routers import users_routers, pizza_routers
 
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 

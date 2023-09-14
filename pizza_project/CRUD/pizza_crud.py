@@ -1,10 +1,12 @@
 from sqlalchemy.orm import Session
+
+from pizza_project.database import get_async_session
 from pizza_project import models, schemas
 from fastapi import HTTPException, status
 
 
-def create_pizza(db: Session, pizza: schemas.PizzaCreate):
-    db_pizza = models.Pizza(
+def create_pizza(db: get_async_session, pizza: schemas.PizzaCreate):
+    db_pizza = models.pizza(
         name=pizza.name,
         description=pizza.description,
         size=pizza.size,
@@ -16,15 +18,15 @@ def create_pizza(db: Session, pizza: schemas.PizzaCreate):
 
 
 def get_pizza(db: Session, pizza_id: int):
-    return db.query(models.Pizza).filter(models.Pizza.id == pizza_id).first()
+    return db.get(models.pizza, pizza_id)
 
 
-def get_all_pizzas(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Pizza).offset(skip).limit(limit).all()
+def get_all_pizzas(db: get_async_session, skip: int = 0, limit: int = 100):
+    return db.query(models.pizza).offset(skip).limit(limit).all()
 
 
-def edit_pizza(db: Session, pizza_id: int, pizza):
-    db_pizza = db.query(models.Pizza).filter(models.Pizza.id == pizza_id).first()
+def edit_pizza(db: get_async_session, pizza_id: int, pizza):
+    db_pizza = db.query(models.pizza).filter(models.pizza.id == pizza_id).first()
 
     if db_pizza:
         for attr, value in pizza.model_dump().items():
@@ -38,8 +40,8 @@ def edit_pizza(db: Session, pizza_id: int, pizza):
                             detail='Pizza not found')
 
 
-def delete_pizza(db: Session, pizza_id: int):
-    db_pizza = db.query(models.Pizza).filter(models.Pizza.id == pizza_id).first()
+def delete_pizza(db: get_async_session, pizza_id: int):
+    db_pizza = db.query(models.pizza).filter(models.pizza.id == pizza_id).first()
 
     if db_pizza:
         db.delete(db_pizza)
