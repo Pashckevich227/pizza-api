@@ -1,12 +1,11 @@
 from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from database import SessionLocal
-from routers import users_routers, pizza_routers
+from pizza_project.routers.api import api_router
 
 
 app = FastAPI()
+app.include_router(api_router)
 
 origins = [
     "http://127.0.0.1",
@@ -32,9 +31,6 @@ async def db_session_middleware(request: Request, call_next):
     finally:
         await request.state.db.close()
     return response
-
-app.include_router(pizza_routers.router_pizza)
-app.include_router(users_routers.router)
 
 
 @app.get("/")

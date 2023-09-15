@@ -35,17 +35,17 @@ async def get_all_pizzas(db: AsyncSession, skip: int = 0, limit: int = 100):
 async def edit_pizza(db: AsyncSession, pizza_id: int, pizza):
     data = select(models.Pizza).filter(models.Pizza.id == pizza_id)
     result = await db.execute(data)
-    pizza = result.scalar()
+    db_pizza = result.scalar()
 
     if pizza:
-        pizza.name = pizza.name
-        pizza.description = pizza.description
-        pizza.size = pizza.size
-        pizza.price = pizza.price
+        db_pizza.name = pizza.name
+        db_pizza.description = pizza.description
+        db_pizza.size = pizza.size
+        db_pizza.price = pizza.price
 
         await db.commit()
-        await db.refresh(pizza)
-        return pizza
+        await db.refresh(db_pizza)
+        return db_pizza
     else:
         return None
 
