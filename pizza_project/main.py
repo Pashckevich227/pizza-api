@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from pizza_project.routers.api import api_router
 
-
 app = FastAPI()
+
 app.include_router(api_router)
 
 origins = [
@@ -32,10 +32,6 @@ async def db_session_middleware(request: Request, call_next):
         await request.state.db.close()
     return response
 
-
-@app.get("/")
-async def root():
-    return {"message": "Order the Pizza!"}
 
 
 

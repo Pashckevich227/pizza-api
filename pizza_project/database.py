@@ -1,6 +1,7 @@
+import datetime
 from typing import AsyncGenerator
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
-from sqlalchemy import Boolean, String, Integer
+from sqlalchemy import Boolean, String, Integer, TIMESTAMP, DateTime
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from config import USER, PASSWORD, POSTGRES_DB, POSTGRES_SERVER
@@ -31,6 +32,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     hashed_password: Mapped[str] = mapped_column(
         String(length=1024), nullable=False
     )
+    registered_at: Mapped[TIMESTAMP] = mapped_column(TIMESTAMP, default=datetime.datetime.utcnow())
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False
