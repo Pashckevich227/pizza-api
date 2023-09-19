@@ -1,12 +1,11 @@
 from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
-from models import Base
-from database import engine, SessionLocal
-from routers import users_routers, pizza_routers
-
-Base.metadata.create_all(bind=engine)
+from sqlalchemy.ext.asyncio import AsyncSession
+from pizza_project.routers.api import api_router
 
 app = FastAPI()
+
+app.include_router(api_router)
 
 origins = [
     "http://127.0.0.1",
@@ -27,19 +26,12 @@ app.add_middleware(
 async def db_session_middleware(request: Request, call_next):
     response = Response("Internal server error", status_code=500)
     try:
-        request.state.db = SessionLocal()
+        request.state.db = AsyncSession()
         response = await call_next(request)
     finally:
-        request.state.db.close()
+        await request.state.db.close()
     return response
 
-app.include_router(pizza_routers.router_pizza)
-app.include_router(users_routers.router)
-
-
-@app.get("/")
-async def root():
-    return {"message": "Order the Pizza!"}
 
 
 
