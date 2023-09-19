@@ -5,7 +5,7 @@ from sqlalchemy import Boolean, String, Integer, TIMESTAMP, DateTime
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from config import USER, PASSWORD, POSTGRES_DB, POSTGRES_SERVER
-from fastapi import Depends, Request
+from fastapi import Depends
 
 
 SQLALCHEMY_DATABASE_URL = f"postgresql+asyncpg://{USER}:{PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
@@ -19,7 +19,7 @@ class Base(DeclarativeBase):
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, default=True, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(
         String(length=30), default=False, nullable=False
     )
@@ -49,8 +49,3 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User)
-
-
-def get_db(request: Request):
-    return request.state.db
-

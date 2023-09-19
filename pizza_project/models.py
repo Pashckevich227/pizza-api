@@ -46,7 +46,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     # is_superuser = Column(Boolean, default=False, nullable=False),
     # is_verified = Column(Boolean, default=False, nullable=False)
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, default=True, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(String(length=30), default=False, nullable=False)
     telephone: Mapped[str] = mapped_column(String(length=30), default=False, nullable=True)
     email: Mapped[str] = mapped_column(String(length=320), unique=True, index=True, nullable=False)

@@ -1,18 +1,11 @@
 from fastapi import APIRouter
-from fastapi_users import FastAPIUsers
-from auth.manager import get_user_manager
 from auth.settings import auth_backend
-from pizza_project.database import User
 from pizza_project.routers import pizza_routers
 from pizza_project.schemas import UserRead, UserCreate, UserUpdate
+from auth.settings import fastapi_users
+
 
 api_router = APIRouter()
-
-fastapi_users = FastAPIUsers[User, int](
-    get_user_manager,
-    [auth_backend],
-)
-current_active_user = fastapi_users.current_user(active=True)
 
 
 api_router.include_router(pizza_routers.router, tags=["pizza"])
