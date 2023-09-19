@@ -1,7 +1,7 @@
 import datetime
 from typing import AsyncGenerator
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
-from sqlalchemy import Boolean, String, Integer, TIMESTAMP, DateTime
+from sqlalchemy import Boolean, String, Integer, TIMESTAMP
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from config import USER, PASSWORD, POSTGRES_DB, POSTGRES_SERVER

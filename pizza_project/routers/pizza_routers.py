@@ -15,7 +15,8 @@ router = APIRouter()
 @router.get("/pizza/{id}",
             response_model=Pizza,
             status_code=status.HTTP_200_OK)
-async def read_one_pizza(pizza_id: int, db: AsyncSession = Depends(get_async_session),
+async def read_one_pizza(pizza_id: int,
+                         db: AsyncSession = Depends(get_async_session),
                          user: User = Depends(current_active_user)):
     db_pizza = await get_pizza(db, pizza_id=pizza_id)
     if db_pizza is None:

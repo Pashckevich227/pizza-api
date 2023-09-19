@@ -3,7 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pizza_project import models, schemas
 
 
-async def create_pizza(db: AsyncSession, pizza: schemas.PizzaCreate):
+async def create_pizza(db: AsyncSession,
+                       pizza: schemas.PizzaCreate):
     db_pizza = models.Pizza(
         name=pizza.name,
         description=pizza.description,
@@ -15,13 +16,16 @@ async def create_pizza(db: AsyncSession, pizza: schemas.PizzaCreate):
     return db_pizza
 
 
-async def get_pizza(db: AsyncSession, pizza_id: int):
+async def get_pizza(db: AsyncSession,
+                    pizza_id: int):
     data = select(models.Pizza).filter(models.Pizza.id == pizza_id)
     result = await db.execute(data)
     return result.scalar()
 
 
-async def get_all_pizzas(db: AsyncSession, skip: int = 0, limit: int = 100):
+async def get_all_pizzas(db: AsyncSession,
+                         skip: int = 0,
+                         limit: int = 100):
     data = select(models.Pizza).offset(skip).limit(limit)
     result = await db.execute(data)
     pizzas = result.scalars().all()
@@ -32,7 +36,9 @@ async def get_all_pizzas(db: AsyncSession, skip: int = 0, limit: int = 100):
     return pizzas
 
 
-async def edit_pizza(db: AsyncSession, pizza_id: int, pizza):
+async def edit_pizza(db: AsyncSession,
+                     pizza_id: int,
+                     pizza):
     data = select(models.Pizza).filter(models.Pizza.id == pizza_id)
     result = await db.execute(data)
     db_pizza = result.scalar()
@@ -50,7 +56,8 @@ async def edit_pizza(db: AsyncSession, pizza_id: int, pizza):
         return None
 
 
-async def delete_pizza(db: AsyncSession, pizza_id: int):
+async def delete_pizza(db: AsyncSession,
+                       pizza_id: int):
     data = select(models.Pizza).filter(models.Pizza.id == pizza_id)
     result = await db.execute(data)
     pizza = result.scalar()
