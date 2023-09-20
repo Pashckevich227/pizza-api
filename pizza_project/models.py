@@ -1,7 +1,7 @@
 import datetime
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy.orm import Mapped, mapped_column
-from database import Base
+from pizza_project.database import Base
 from sqlalchemy import (Column,
                         Integer,
                         String,
