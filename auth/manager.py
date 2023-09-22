@@ -2,7 +2,8 @@ import datetime
 from typing import Optional
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin, schemas, models, exceptions
-from pizza_project.database import User, get_user_db
+from pizza_project.database import get_user_db
+from pizza_project.models import User
 from config import SECRET_KEY_RESET_PASSWORD
 
 

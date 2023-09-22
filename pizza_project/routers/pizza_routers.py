@@ -6,7 +6,8 @@ from pizza_project.CRUD.pizza_crud import (create_pizza,
                                            get_all_pizzas,
                                            edit_pizza,
                                            delete_pizza)
-from pizza_project.database import get_async_session, User
+from pizza_project.database import get_async_session
+from pizza_project.models import User
 from auth.settings import current_active_user, current_superuser
 
 router = APIRouter()

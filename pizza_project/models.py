@@ -1,7 +1,7 @@
 import datetime
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column
-from pizza_project.database import Base
 from sqlalchemy import (Column,
                         Integer,
                         String,
@@ -13,6 +13,9 @@ from sqlalchemy import (Column,
 
 
 metadata = MetaData()
+
+
+Base = declarative_base(metadata=metadata)
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
