@@ -44,7 +44,7 @@ async def test_login_user(ac: AsyncClient):
     assert response.status_code == 204
 
 
-@pytest.mark.run(order=8)
+@pytest.mark.run(order=101)
 async def test_logout_user(ac: AsyncClient):
     token = ac.cookies.get("User")
     response = await ac.post("/auth/jwt/logout",

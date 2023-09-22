@@ -35,6 +35,13 @@ user = {
     "telephone": "8(987)654-32-21"
 }
 
+pizza = {
+    "name": "Test_pizza",
+    "description": "This is test pizza",
+    "size": "T",
+    "price": 699
+}
+
 
 async def override_get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session_maker() as session:
