@@ -6,13 +6,14 @@ from pizza_project.CRUD.pizza_crud import (create_pizza,
                                            get_all_pizzas,
                                            edit_pizza,
                                            delete_pizza)
-from pizza_project.database import get_async_session, User
+from pizza_project.database import get_async_session
+from pizza_project.models import User
 from auth.settings import current_active_user, current_superuser
 
 router = APIRouter()
 
 
-@router.get("/pizza/{id}",
+@router.get("/pizza/{pizza_id}",
             response_model=Pizza,
             status_code=status.HTTP_200_OK)
 async def read_one_pizza(pizza_id: int,
@@ -47,7 +48,7 @@ async def create_new_pizza(pizza: PizzaCreate,
     return data
 
 
-@router.put("/pizza/{id}", response_model=Pizza)
+@router.put("/pizza/{pizza_id}", response_model=Pizza)
 async def edit_one_pizza(pizza_id: int,
                          pizza: PizzaCreate,
                          db: AsyncSession = Depends(get_async_session),
@@ -59,7 +60,7 @@ async def edit_one_pizza(pizza_id: int,
     return data
 
 
-@router.delete("/pizza/{id}", response_model=dict)
+@router.delete("/pizza/{pizza_id}", response_model=dict)
 async def delete_one_pizza(pizza_id: int,
                            db: AsyncSession = Depends(get_async_session),
                            user: User = Depends(current_superuser)):

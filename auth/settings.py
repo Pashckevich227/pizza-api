@@ -3,7 +3,7 @@ from fastapi_users.authentication import CookieTransport, AuthenticationBackend
 from fastapi_users.authentication import JWTStrategy
 from auth.manager import get_user_manager
 from config import SECRET_KEY, LIFETIME
-from pizza_project.database import User
+from pizza_project.models import User
 
 
 cookie_transport = CookieTransport(cookie_name="User", cookie_max_age=3600)
